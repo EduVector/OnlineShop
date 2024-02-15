@@ -1,46 +1,58 @@
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
+from colorfield.fields import ColorField
+from django.contrib.auth.models import User
 
-class Category(models.Model):
-    type_categories = models.CharField(max_length=50)
-    icon =  models.FileField(upload_to=None ) # icon ka qoyiladi
-    parent = models.IntegerField()
-    
-class ProductImage(models.Model):
-    image = models.ImageField(upload_to=None ) # rasm yukliman
-    is_active = models.BooleanField()
-    
+
+class Category(MPTTModel):
+    name = models.CharField(max_length=50)
+    icon = models.ImageField(upload_to='icons/', null=True, blank=True)  # icon ka qoyiladi
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Brand(models.Model):
     name = models.CharField(max_length=250)
-    
-class AdditionalInfo(models.Model):
-    key = models.CharField(max_length=50)
-    value = models.CharField( max_length=50)
+
+    def __str__(self):
+        return self.name
+
 
 class Color(models.Model):
-    name = models.CharField( max_length=50)
-    code = models.CharField( max_length=50)
+    COLOR_PALETTE = [
+        ("#ff0000", "qizil",),
+        ("#ffa500", "jigar rang",),
+        ("#ffff00", "sariq",),
+        ("#008000", "yashil",),
+        ("#0000ff", "ko'k",),
+        ("#4b0082", "binafsha",),
+        ("#ee82ee", "pushti",),
+    ]
+    name = models.CharField(max_length=50)
+    code = ColorField(samples=COLOR_PALETTE)
+
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
-    name = models.CharField( max_length=50)
-    
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class Size(models.Model):
     name = models.CharField(max_length=50)
-    
-class Contact(models.Model):
-    full_name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=50)
-    email = models.EmailField(max_length=254)
-    messege = models.TextField()
-    
-class User(models.Model):
-    name = models.CharField(max_length=50)
-    
-class Branch(models.Model):
-    full_name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    location = models.URLField(max_length=200)
-            
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     STATUS = (
         ('HOT', 'hot'),
@@ -52,20 +64,44 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=250)
     slug = models.SlugField()
-    status = models.CharField(choices=STATUS,max_length=250, default='HOT') # bunda uchta narsani tanlidi adashmasam yani new old top shular
-    category = models.ManyToManyField(Category)
-    brand = models.ForeignKey( Brand , on_delete=models.CASCADE) # foreign
-    discription = models.TextField()
-    percentage = models.FloatField(null = True  , blank = True)
-    price = models.FloatField()
+    status = models.CharField(choices=STATUS, max_length=250,
+                              default='HOT')  # bunda uchta narsani tanlidi adashmasam yani new old top shular
+    categories = models.ManyToManyField(Category, blank=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)  # foreign
+    description = models.TextField(null=True, blank=True)
+    percentage = models.FloatField(null=True, blank=True)
+    price = models.FloatField(default=0)
     views = models.IntegerField(default=1)
-    availability = models.IntegerField()
-    color = models.ForeignKey(Color , on_delete=models.CASCADE)# foreign
-    sizes = models.ManyToManyField(Size) # foreign
-    has_size = models.BooleanField()
-    tags = models.ManyToManyField(Tag) # foreign
-    is_active = models.BooleanField()  
-    
+    availability = models.IntegerField(default=0)
+    colors = models.ManyToManyField(Color, blank=True)  # foreign
+    sizes = models.ManyToManyField(Size, blank=True)  # foreign
+    has_size = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag, blank=True)  # foreign
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to=None)  # rasm yukliman
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.product.name
+
+
+class AdditionalInfo(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='additional_info')
+    key = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.product.name
+
+
 class Rate(models.Model):
     RATING = (
         (0, 0),
@@ -75,8 +111,11 @@ class Rate(models.Model):
         (4, 4),
         (5, 5),
     )
-        
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey( Product, on_delete=models.CASCADE)
-    rate = models.IntegerField(choices=RATING , default=0)
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_rates')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, related_name='product_rates')
+    rate = models.IntegerField(choices=RATING, default=0)
     comment = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.comment
