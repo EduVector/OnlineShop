@@ -32,3 +32,21 @@ py manage.py createsuperuser
 ```bash
 py manage.py runserver
 ```
+
+## 2. How to pull from (GitHub/GitLab)
+
+### 1. Check the status of your repository
+```bash
+git status
+```
+
+### 2. If you have any changes, commit them (Optional)
+```bash
+git add .
+git commit -m "Your message"
+```
+
+### 3. Pull the latest changes from the remote repository
+```bash
+git pull origin main
+```
