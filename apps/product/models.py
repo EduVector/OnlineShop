@@ -2,27 +2,27 @@ from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
+from apps.base.models import BaseModel
 
 
-class Category(MPTTModel):
+class Category(BaseModel, MPTTModel):
     name = models.CharField(max_length=50)
     icon = models.ImageField(upload_to='icons/', null=True, blank=True)  # icon ka qoyiladi
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Brand(models.Model):
+class Brand(BaseModel):
     name = models.CharField(max_length=250)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Color(models.Model):
+class Color(BaseModel):
     COLOR_PALETTE = [
         ("#ff0000", "qizil",),
         ("#ffa500", "jigar rang",),
@@ -36,31 +36,32 @@ class Color(models.Model):
     code = ColorField(samples=COLOR_PALETTE)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Tag(models.Model):
+class Tag(BaseModel):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Size(models.Model):
+class Size(BaseModel):
     name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class Product(models.Model):
+class Product(BaseModel):
     STATUS = (
-        ('HOT', 'hot'),
-        ('NEW', 'new'),
-        ('OLD', 'old'),
-        ('TOP', 'top'),
-        ('SALE', 'sale'),
-        ('DISCOUNT', 'discount'),
+        ('None', 'None'),
+        ('HOT', 'HOT'),
+        ('NEW', 'NEW'),
+        ('OLD', 'OLD'),
+        ('TOP', 'TOP'),
+        ('SALE', 'SALE'),
+        ('DISCOUNT', 'DISCOUNT'),
     )
     name = models.CharField(max_length=250)
     slug = models.SlugField()
@@ -78,31 +79,30 @@ class Product(models.Model):
     has_size = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, blank=True)  # foreign
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name}"
 
 
-class ProductImage(models.Model):
+class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=None)  # rasm yukliman
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.product.name
+        return f"{self.product.name}"
 
 
-class AdditionalInfo(models.Model):
+class AdditionalInfo(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='additional_info')
     key = models.CharField(max_length=50)
     value = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.product.name
+        return f"{self.product.name}"
 
 
-class Rate(models.Model):
+class Rate(BaseModel):
     RATING = (
         (0, 0),
         (1, 1),
@@ -118,4 +118,4 @@ class Rate(models.Model):
     comment = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.comment
+        return f"{self.comment}"
