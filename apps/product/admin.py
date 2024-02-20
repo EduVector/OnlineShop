@@ -8,3 +8,8 @@ class CategoryAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "name"
     list_display = ('tree_actions', 'indented_title', 'created_at', 'is_active', 'id')
     list_display_links = ('indented_title', 'id')
+
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    pass
