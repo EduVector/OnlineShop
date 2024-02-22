@@ -1,21 +1,23 @@
 from django.contrib import admin
-from mptt.admin import DraggableMPTTAdmin
-from .models import WishList,ShopCart,Order,OrderItem
+from .models import WishList, ShopCart, Order, OrderItem
 
 # Register your models here.
 
 @admin.register(WishList)
-class WishList(DraggableMPTTAdmin):
-    mptt_indent_field = "name"
+class WishListAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'product', 'created_at')
+
 
 @admin.register(ShopCart)
-class AdminShopCart(DraggableMPTTAdmin):
-    mptt_indent_field = "name"
+class ShopCartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'is_complated', 'created_at')
+
 
 @admin.register(Order)
-class AdminOrder(DraggableMPTTAdmin):
-    mptt_indent_field = "name"
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'status', 'user', 'phone_numeber', 'created_at']
+
 
 @admin.register(OrderItem)
-class AdminOrderItem(DraggableMPTTAdmin):
-    mptt_indent_field = "name"
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['id', 'cart', 'order', 'product', 'quantity', 'price', 'created_at']
