@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # build-id
     'mptt',
+    'colorfield',
     
     # built apps
     'apps.account',
