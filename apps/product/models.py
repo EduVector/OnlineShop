@@ -25,15 +25,16 @@ class Brand(BaseModel):
 class Color(BaseModel):
     COLOR_PALETTE = [
         ("#ff0000", "qizil",),
-        ("#ffa500", "jigar rang",),
+        ("#FFFEFA", "oq",),
         ("#ffff00", "sariq",),
         ("#008000", "yashil",),
         ("#0000ff", "ko'k",),
         ("#4b0082", "binafsha",),
         ("#ee82ee", "pushti",),
+        ("#000000", "qora"),
     ]
     name = models.CharField(max_length=50)
-    code = ColorField(samples=COLOR_PALETTE)
+    color = ColorField(samples=COLOR_PALETTE)
 
     def __str__(self):
         return f"{self.name}"

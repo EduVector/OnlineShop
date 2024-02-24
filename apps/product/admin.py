@@ -19,7 +19,8 @@ class BrandAdmin(admin.ModelAdmin):
     
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
-    pass
+    list_display =('name','color','id')
+    search_fields =('name','id')
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display =('name','status','brand','views','id')
