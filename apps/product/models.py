@@ -31,7 +31,11 @@ class Color(BaseModel):
         ("#0000ff", "ko'k",),
         ("#4b0082", "binafsha",),
         ("#ee82ee", "pushti",),
+<<<<<<< HEAD
         ("#000000", "qora"),
+=======
+        ("#000000", "qora",),
+>>>>>>> bae5108d91eef9003984396b866260dc120a38db
     ]
     name = models.CharField(max_length=50)
     color = ColorField(samples=COLOR_PALETTE)

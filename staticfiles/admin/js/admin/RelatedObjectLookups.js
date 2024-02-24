@@ -79,11 +79,17 @@
             siblings.each(function() {
                 const elm = $(this);
                 elm.attr('href', elm.attr('data-href-template').replace('__fk__', value));
+<<<<<<< HEAD
                 elm.removeAttr('aria-disabled');
             });
         } else {
             siblings.removeAttr('href');
             siblings.attr('aria-disabled', true);
+=======
+            });
+        } else {
+            siblings.removeAttr('href');
+>>>>>>> bae5108d91eef9003984396b866260dc120a38db
         }
     }
 
