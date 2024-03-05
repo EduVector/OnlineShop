@@ -65,13 +65,13 @@ class Product(BaseModel):
         ('DISCOUNT', 'DISCOUNT'),
     )
     name = models.CharField(max_length=250)
-    slug = models.SlugField()
+    slug = models.SlugField(null=True, blank=True, unique=True, max_length=250)
     status = models.CharField(choices=STATUS, max_length=250,
                               default='HOT')  # bunda uchta narsani tanlidi adashmasam yani new old top shular
     categories = models.ManyToManyField(Category, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)  # foreign
     description = models.TextField(null=True, blank=True)
-    percentage = models.FloatField(null=True, blank=True)
+    percentage = models.FloatField(null=True, blank=True, default=0)
     price = models.FloatField(default=0)
     views = models.IntegerField(default=1)
     availability = models.IntegerField(default=0)
@@ -83,6 +83,16 @@ class Product(BaseModel):
 
     def __str__(self):
         return f"{self.name}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = self.name.replace(' ', '-').lower()
+        super(Product, self).save(*args, **kwargs)
+
+    @property
+    def get_new_price(self):
+        if self.percentage == 0 or self.percentage is None:
+            return self.price
+        return self.price - (self.price * self.percentage / 100)
 
 
 class ProductImage(BaseModel):
