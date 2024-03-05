@@ -25,8 +25,9 @@ urlpatterns = [
     # Local app's URLs
     path('', include('apps.product.urls')),
     path('auth/', include('apps.account.urls')),
-
+    path('contact/',include('apps.contact.urls')),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
