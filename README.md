@@ -50,3 +50,25 @@ git commit -m "Your message"
 ```bash
 git pull origin main
 ```
+
+## 3. How to push to (GitHub/GitLab)
+
+### 1. Check your code
+```bash
+git status
+```
+
+### 2. Add local variables
+```bash
+git add .
+```
+
+### 3. Write commit
+```bash
+git commit -m "<dercribe, what do you do to code>"
+```
+
+### 4. Push to (GitHub/GitLab)
+```bash
+git push origin <your_branch>
+```
