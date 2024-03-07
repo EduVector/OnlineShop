@@ -32,7 +32,6 @@ class Color(BaseModel):
         ("#4b0082", "binafsha"),
         ("#ee82ee", "pushti"),
         ("#000000", "qora"),
-
     ]
     name = models.CharField(max_length=50)
     color = ColorField(samples=COLOR_PALETTE)
@@ -66,9 +65,8 @@ class Product(BaseModel):
         ('DISCOUNT', 'DISCOUNT'),
     )
     name = models.CharField(max_length=250)
-    slug = models.SlugField()
-    status = models.CharField(choices=STATUS, max_length=250,
-                              default='HOT')  # bunda uchta narsani tanlidi adashmasam yani new old top shular
+    slug = models.SlugField(null=True,blank=True,unique=True,max_length=250)
+    status = models.CharField(choices=STATUS, max_length=300,default='HOT')  # bunda uchta narsani tanlidi adashmasam yani new old top shular
     categories = models.ManyToManyField(Category, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)  # foreign
     description = models.TextField(null=True, blank=True)
@@ -85,6 +83,9 @@ class Product(BaseModel):
     def __str__(self):
         return f"{self.name}"
 
+    def save(self, *args, **kwargs):
+        self.slug = self.name.replace('','-')
+        super(Product, self).save(*args , **kwargs)
 
 class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')

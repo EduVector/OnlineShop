@@ -1,8 +1,31 @@
 from django.shortcuts import render
-from 
+from django.views import View
+from apps.product.models import (
+    Category,
+    Brand,
+    Size,
+    Tag,
+    Product,
+    ProductImage,
+    Color,
+    AdditionalInfo,
+    Rate,
+)
+class HomePage(View):
+    def get(self,request):
+        products = Product.objects.filter(is_active=True,).order_by('?')[:16]
+        popular_products = Product.objects.filter(is_active=True,).order_by('-views')[:16]
+        new_products = Product.objects.filter(is_active=True,).order_by('-created_at')[:16]
+        parent_cats = Category.objects.filter(level=0).order_by('?')
 
-def index(request):
-    return render(request,'product/index.html',{})
+        ctx = {
+            'products':products,
+            'popular_products':popular_products,
+            'new_products':new_products,
+            'parent_cats':parent_cats,        
+        }
+        
+        return render(request,'product/index.html',ctx)
 
 def page404(request):
     return render(request,'product/page-404.html',{})

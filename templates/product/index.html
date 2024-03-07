@@ -125,54 +125,18 @@
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows"></div>
                     <div class="carausel-6-columns" id="carausel-6-columns">
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-1.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Men's Fashion</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-2.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Women's Fashion</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-3.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Watches</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-4.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Bag & Shoes</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-5.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Phone</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-6.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Computers</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-7.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Laptop</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="{% static '' %}assets/imgs/shop/category-thumb-8.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Furniture</a></h5>
-                        </div>
+                        {% for i in parent_cats %} 
+                            <div class="card-1 border-radius-10 hover-up p-30">
+                                <figure class="mb-30 img-hover-scale overflow-hidden">
+                                    {% if i.icons %}
+                                    <img src="{{ i.icon.url }}" alt="">
+                                    {% else %}
+                                    <img src="{% static '' %}assets/imgs/default/images.png" alt="">
+                                    {% endif %}
+                                </figure>
+                                <h5><a href="shop-grid-right.html">{{ i.name }}</a></h5>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -2310,6 +2274,5 @@
                 </div>
             </div>
         </section>
-    </main>
-    
+    </main> 
 {% endblock %}
