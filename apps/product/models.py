@@ -17,6 +17,7 @@ class Category(BaseModel, MPTTModel):
 
 class Brand(BaseModel):
     name = models.CharField(max_length=250)
+    img = models.ImageField(upload_to='brand/' )
 
     def __str__(self):
         return f"{self.name}"
