@@ -292,7 +292,7 @@
                     <!--En tab two (Popular)-->
                     <div class="tab-pane fade" id="tab-three" role="tabpanel" aria-labelledby="tab-three">
                         <div class="row product-grid-4">
-                            {% for i in new_products%}
+                            {% for i in new_products %}
                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
@@ -362,253 +362,41 @@
                 <div class="carausel-6-columns-cover arrow-center position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-2-arrows"></div>
                     <div class="carausel-6-columns carausel-arrow-center" id="carausel-6-columns-2">
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-2-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-2-2.jpg" alt="">
-                                    </a>
+                        {% for product in new_products %}
+                            <div class="product-cart-wrap small hover-up">
+                                <div class="product-img-action-wrap">
+                                    <div class="product-img product-img-zoom">
+                                        <a href="/shop/">
+                                            <img class="default-img" src="{{ product.images.first.image.url }}" alt="">
+                                            <img class="hover-img" src="{{ product.images.last.image.url }}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="product-action-1">
+                                        <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
+                                        <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
+                                        <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
+                                    </div>
+                                    <div class="product-badges product-badges-position product-badges-mrg">
+                                        <span class="hot">Hot</span>
+                                    </div>
                                 </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="hot">Hot</span>
+                                <div class="product-content-wrap">
+                                    <h2><a href="shop-product-right.html">{{product.name}}</a></h2>
+                                    <div class="rating-result" title="90%">
+                                        <span>
+                                        </span>
+                                    </div>
+                                    <div class="product-price">
+                                        {% if product.percentage %}
+                                            <span>$ {{ product.get_new_price }} </span>
+                                            <span class="old-price">$ {{ product.price }}</span>
+                                        {% else %}
+                                            <span>$ {{ product.price }} </span>
+                                        {% endif %}
                                 </div>
                             </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Ulstra Bass Headphone</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$238.85 </span>
-                                    <span class="old-price">$245.8</span>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                         <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-4-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-4-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="new">New</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Smart Home Speaker</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$173.85 </span>
-                                    <span class="old-price">$185.8</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-15-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-15-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="sale">Sale</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Sony hand gaming</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$215.85 </span>
-                                    <span class="old-price">$235.8</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-3-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-3-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="hot">.33%</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Bluetooth Speaker</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$83.8 </span>
-                                    <span class="old-price">$125.2</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-9-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-9-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="hot">-25%</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Macbook Air 2021</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$1238.85 </span>
-                                    <span class="old-price">$1245.8</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-7-1.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-7-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                                <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="new">New</span>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Leather Watch Band</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$123 </span>
-                                    <span class="old-price">$156</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                        <div class="product-cart-wrap small hover-up">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{% static '' %}assets/imgs/shop/product-1-2.jpg" alt="">
-                                        <img class="hover-img" src="{% static '' %}assets/imgs/shop/product-2-2.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Quick view" class="action-btn small hover-up" tabindex="0"><i class="far fa-search"></i></a>
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="far fa-exchange-alt"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <h2><a href="shop-product-right.html">Leather Watch Band</a></h2>
-                                <div class="rating-result" title="90%">
-                                    <span>
-                                    </span>
-                                </div>
-                                <div class="product-price">
-                                    <span>$238.85 </span>
-                                    <span class="old-price">$245.8</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End product-cart-wrap-2-->
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="deals">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 deal-co">
-                        <div class="deal wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0" style="background-image: url('{% static '' %}assets/imgs/banner/menu-banner-7.jpg');">
-                            <div class="deal-top">
-                                <h2 class="text-brand">Deal of the Day.</h2>
-                                <h5>Limited quantities.</h5>
-                            </div>
-                            <div class="deal-content">
-                                <h6 class="product-title"><a href="shop-product-right.html">Smart Headphone New Morden Design</a></h6>
-                                <div class="product-price"><span class="new-price">$139.00</span><span class="old-price">$160.99</span></div>
-                            </div>
-                            <div class="deal-bottom">
-                                <p>Hurry Up! Offer End In:</p>
-                                <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
-                                <a href="shop-grid-right.html" class="btn hover-up">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 deal-co">
-                        <div class="deal wow fadeIn animated" style="background-image: url('{% static '' %}assets/imgs/banner/menu-banner-8.jpg');">
-                            <div class="deal-top">
-                                <h2 class="text-success">Gadgets & Accessories</h2>
-                                <h5>Computers & Laptop</h5>
-                            </div>
-                            <div class="deal-content">
-                                <h6 class="product-title"><a href="shop-product-right.html">Apple In-Ear Headphones with Remote and Mic</a></h6>
-                                <div class="product-price"><span class="new-price">$178.00</span><span class="old-price">$256.99</span></div>
-                            </div>
-                            <div class="deal-bottom">
-                                <p>Hurry Up! Offer End In:</p>
-                                <div class="deals-countdown" data-countdown="2026/03/25 00:00:00"></div>
-                                <a href="shop-grid-right.html" class="btn hover-up">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -619,9 +407,13 @@
                 <div class="carausel-6-columns-cover arrow-center position-relative wow fadeIn animated">
                     <div class="slider-arrow slider-arrow-3 carausel-6-columns-arrow" id="carausel-6-columns-3-arrows"></div>
                     <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
-                        {% for brands in all_products %}
+                        {% for brand in brands %}
                         <div class="brand-logo">
-                            <img class="img-grey-hover" src="{{ brands.img.url }}" alt="">
+                            {% if brand.image.url %}
+                                <img class="img-grey-hover" src="{{ brand.image.url }}" alt="">
+                            {% else %}
+                                <img class="img-grey-hover" src="{% static '' %}assets/imgs/default/images.png" alt="">
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
@@ -629,100 +421,9 @@
             </div>
         </section>
 
-        <section class="section-padding-60">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h3 class="section-title style-1 mb-30 wow fadeIn animated">News & Trending</h3>
-                        <div class="post-list mb-4 mb-lg-0">
-                            <article class="wow fadeIn animated">
-                                <div class="d-md-flex d-block">
-                                    <div class="post-thumb d-flex mr-15 border-radius-10">
-                                        <a class="color-white" href="single.html">
-                                            <img class="border-radius-10" src="{% static 'assets/imgs/blog/blog-2.jpg' %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="entry-meta mb-5 mt-10">
-                                            <a class="entry-meta meta-2" href="category.html"><span class="post-in text-danger font-x-small text-uppercase">Tech</span></a>
-                                        </div>
-                                        <h4 class="post-title mb-25 text-limit-2-row">
-                                            <a href="blog-details.html">Qualcomm is developing a Nintendo Switch-like console, report says</a>
-                                        </h4>
-                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                            <div>
-                                                <span class="post-on"> <i class="far fa-clock"></i> 14 April 2021</span>
-                                                <span class="hit-count has-dot">12M Views</span>
-                                            </div>
-                                            <a href="blog-post-right.html">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="wow fadeIn animated">
-                                <div class="d-md-flex d-block">
-                                    <div class="post-thumb d-flex mr-15 border-radius-10">
-                                        <a class="color-white" href="single.html">
-                                            <img class="border-radius-10" src="{% static '' %}assets/imgs/blog/blog-1.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="entry-meta mb-5 mt-10">
-                                            <a class="entry-meta meta-2" href="category.html"><span class="post-in text-info font-x-small text-uppercase">Telecom</span></a>
-                                        </div>
-                                        <h4 class="post-title mb-25 text-limit-2-row">
-                                            <a href="blog-details.html">Not even the coronavirus can derail 5G's global momentum</a>
-                                        </h4>
-                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                            <div>
-                                                <span class="post-on"> <i class="far fa-clock"></i> 14 April 2021</span>
-                                                <span class="hit-count has-dot">12M Views</span>
-                                            </div>
-                                            <a href="blog-post-right.html">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="banner-img banner-1 wow fadeIn animated">
-                                    <img class="border-radius-10" src="{% static '' %}assets/imgs/banner/banner-5.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Gaming Area</span>
-                                        <h4>Save 17% on <br>Assus Laptop</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="banner-img mb-15 wow fadeIn animated">
-                                    <img class="border-radius-10" src="{% static '' %}assets/imgs/banner/banner-6.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Smart Offer</span>
-                                        <h4>Save 20% on <br>iPhone 12</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="banner-img banner-2 wow fadeIn animated">
-                                    <img class="border-radius-10" src="{% static '' %}assets/imgs/banner/banner-7.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Smart Offer</span>
-                                        <h4>Save 20% on <br>iPhone 12</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section class="mb-60">
             <div class="container">
-                <div class="banner-bg wow fadeIn animated" style="background-image: url('assets/imgs/banner/banner-8.jpg')">
+                <div class="banner-bg wow fadeIn animated" style='background-image: url("{% static '' %}assets/imgs/banner/banner-8.jpg")''>
                     <div class="banner-content">
                         <h5 class="text-grey-4 mb-15">Shop Today’s Deals</h5>
                         <h3 class="fw-600">Specialized storage for tourism</h3>
@@ -735,7 +436,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
                         <div class="banner-img wow fadeIn animated mb-md-4 mb-lg-0">
-                            <img class="border-radius-10" src="assets/imgs/banner/banner-10.jpg" alt="">
+                            <img class="border-radius-10" src="{% static '' %}assets/imgs/banner/banner-10.jpg" alt="">
                             <div class="banner-text">
                                 <span>Music Zone</span>
                                 <h4>Save 17% on <br>Headphone</h4>
@@ -748,7 +449,7 @@
                         <div class="product-list-small wow fadeIn animated">
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-3.jpg" alt=""></a>
+                                    <a href="shop-product-right.html"><img src="{% static '' %}assets/imgs/shop/thumbnail-3.jpg" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">
@@ -762,7 +463,7 @@
                             </article>
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-4.jpg" alt=""></a>
+                                    <a href="shop-product-right.html"><img src="{% static '' %}assets/imgs/shop/thumbnail-4.jpg" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">
@@ -776,7 +477,7 @@
                             </article>
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-5.jpg" alt=""></a>
+                                    <a href="shop-product-right.html"><img src="{% static '' %}assets/imgs/shop/thumbnail-5.jpg" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">
@@ -795,7 +496,7 @@
                         <div class="product-list-small wow fadeIn animated">
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="assets/imgs/shop/thumbnail-6.jpg" alt=""></a>
+                                    <a href="shop-product-right.html"><img src="{% static '' %}assets/imgs/shop/thumbnail-6.jpg" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">

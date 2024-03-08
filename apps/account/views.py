@@ -48,3 +48,10 @@ class LoginView(View):
             return redirect("/")
         
         return render(request, 'auth/login.html', {'form': form})
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, "Successfully logged out.")
+        return redirect("/")
