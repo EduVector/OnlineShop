@@ -23,26 +23,25 @@ class ColorAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'id')
 
 
+class ProductImageInline(admin.StackedInline):
+    readonly_fields = ('get_image', 'created_at')
+    model = ProductImage
+    extra = 1
+
+
+class AdditionalInfoAdmin(admin.TabularInline):
+    model = AdditionalInfo
+    extra = 1
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductImageInline, AdditionalInfoAdmin]
     list_display = ('name', 'status', 'brand', 'views', 'id')
     search_fields  = ('name', 'status', 'brand',)
+    list_filter = ['created_at', 'status', 'is_active']
     list_display_links = ('name', 'status', 'brand', 'views', 'id')
     filter_horizontal = ('categories' , 'tags' , 'sizes' , 'colors',)
-
-
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ('product' , 'is_active' , 'created_at' , 'id')
-    list_display_links  = ('product' , 'is_active' , 'created_at' , 'id')
-    search_fields = ('product' , 'id')
-
-
-@admin.register(AdditionalInfo)
-class AdditionalineAdmin(admin.ModelAdmin):
-    list_display = ('product' , 'key' , 'value')
-    list_display_links  = ('product' , 'key' ,  'value')
-    search_fields = ('product' , 'id')
 
 
 @admin.register(Rate)

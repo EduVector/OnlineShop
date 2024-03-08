@@ -3,6 +3,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from apps.base.models import BaseModel
+from django.utils.safestring import mark_safe
 
 
 class Category(BaseModel, MPTTModel):
@@ -17,7 +18,7 @@ class Category(BaseModel, MPTTModel):
 
 class Brand(BaseModel):
     name = models.CharField(max_length=250)
-    img = models.ImageField(upload_to='brand/' )
+    image = models.ImageField(upload_to='brands/' )
 
     def __str__(self):
         return f"{self.name}"
@@ -89,6 +90,7 @@ class Product(BaseModel):
         self.slug = self.name.replace(' ', '-').lower()
         super(Product, self).save(*args, **kwargs)
 
+
     @property
     def get_new_price(self):
         if self.percentage == 0 or self.percentage is None:
@@ -98,11 +100,17 @@ class Product(BaseModel):
 
 class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to=None)  # rasm yukliman
+    image = models.ImageField(upload_to='products')  # rasm yukliman
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.product.name}"
+    
+    @property
+    def get_image(self):
+        if not self.image.url:
+            return "No Image"
+        return mark_safe('<img src="{}" height="100"/>'.format(self.image.url))
 
 
 class AdditionalInfo(BaseModel):
