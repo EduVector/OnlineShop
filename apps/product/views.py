@@ -26,3 +26,8 @@ class HomePage(View):
             'new_arrivals': products[10:20],
         }
         return render(request, 'product/index.html', context)
+
+
+class ShopView(View):
+    def get(self, request):
+        return render(request, 'product/shop.html')
