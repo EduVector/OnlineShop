@@ -18,7 +18,7 @@ class Category(BaseModel, MPTTModel):
 
 class Brand(BaseModel):
     name = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='brands/' )
+    image = models.ImageField(upload_to='brands/')
 
     def __str__(self):
         return f"{self.name}"
@@ -85,11 +85,10 @@ class Product(BaseModel):
 
     def __str__(self):
         return f"{self.name}"
-    
+
     def save(self, *args, **kwargs):
         self.slug = self.name.replace(' ', '-').lower()
         super(Product, self).save(*args, **kwargs)
-
 
     @property
     def get_new_price(self):
@@ -105,7 +104,7 @@ class ProductImage(BaseModel):
 
     def __str__(self):
         return f"{self.product.name}"
-    
+
     @property
     def get_image(self):
         if not self.image.url:
