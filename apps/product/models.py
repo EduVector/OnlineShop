@@ -61,10 +61,7 @@ class Product(BaseModel):
         ('None', 'None'),
         ('HOT', 'HOT'),
         ('NEW', 'NEW'),
-        ('OLD', 'OLD'),
-        ('TOP', 'TOP'),
         ('SALE', 'SALE'),
-        ('DISCOUNT', 'DISCOUNT'),
     )
     name = models.CharField(max_length=250)
     slug = models.SlugField(null=True, blank=True, unique=True, max_length=250)
