@@ -127,9 +127,9 @@
                         <div class="card-1 border-radius-10 hover-up p-30">
                             <figure class="mb-30 img-hover-scale overflow-hidden">
                                 {% if parent_cat.icon %}
-                                <img src="{{ parent_cat.icon.url }}" alt="">
+                                    <img src="{{ parent_cat.icon.url }}" alt="">
                                 {% else %}
-                                <img src="{% static '' %}assets/imgs/default/images.png" alt="">
+                                    <img src="{% static '' %}assets/imgs/default/images.png" alt="">
                                 {% endif %}
                             </figure>
                             <h5><a href="shop-grid-right.html">{{ parent_cat.name }}</a></h5>
