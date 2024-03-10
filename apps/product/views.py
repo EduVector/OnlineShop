@@ -9,6 +9,8 @@ from apps.product.models import (
     ProductImage, 
 )
 
+from django.core.paginator import Paginator
+
 
 class HomePage(View):
     def get(self, request):
@@ -38,4 +40,21 @@ class HomePage(View):
 
 class ShopView(View):
     def get(self, request):
+        page = request.GET.get('page', 1)
+
+        products = Product.objects.filter(is_active=True).order_by("?")
+
+        if page:
+            paginator = Paginator(products, 1)
+            selected_page = paginator.get_page(page)
+
+
+        context = {
+            "products": selected_page
+        }
         return render(request, 'product/shop.html')
+
+
+class ProductDetailView(View):
+    def get(self, request):
+        return render(request, 'product/shop-detail.html', {})
