@@ -29,7 +29,8 @@ class HomePage(View):
             'new_arrivals': products[:20],
             'top_views': popular_products[:3],
             'top_sales': top_sales[:3],
-            'top_rates': top_rates[:3]
+            'top_rates': top_rates[:3],
+            'main_products': products[16:32]
 
         }
         return render(request, 'product/index.html', context)
