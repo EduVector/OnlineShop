@@ -1,9 +1,12 @@
 from django.db import models
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from apps.base.models import BaseModel
 from django.utils.safestring import mark_safe
+from django.db.models import Avg
+from django.template.defaultfilters import slugify  # new
 
 
 class Category(BaseModel, MPTTModel):
@@ -83,15 +86,36 @@ class Product(BaseModel):
     def __str__(self):
         return f"{self.name}"
 
-    def save(self, *args, **kwargs):
-        self.slug = self.name.replace(' ', '-').lower()
-        super(Product, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+    
+    @property
+    def rate_percentage(self):
+        rates = self.product_rates.all().aggregate(avarage=Avg("rate"))
+        if rates['avarage']:
+            return rates['avarage'] * 100 / 5
+        return 0
+
+    
+    @property
+    def rate_avg(self):
+        rates = self.product_rates.all().aggregate(avarage=Avg("rate"))
+        if rates['avarage']:
+            return rates['avarage']
+        return 0
+
 
     @property
     def get_new_price(self):
         if self.percentage == 0 or self.percentage is None:
             return self.price
         return self.price - (self.price * self.percentage / 100)
+    
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"slug": self.slug})
+    
 
 
 class ProductImage(BaseModel):

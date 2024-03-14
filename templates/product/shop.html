@@ -65,7 +65,7 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a href="shop-product-right.html">
+                                            <a href="{{ product.get_absolute_url }}">
                                             <img class="default-img" src="{{ product.images.first.image.url }}"
                                             alt="{{ product.slug }}">
                                         <img class="hover-img" src="{{ product.images.last.image.url }}"
@@ -85,7 +85,7 @@
                                         <div class="product-category">
                                             <a href="{% url 'shop' %}">{{ product.categories.first.name }}</a>
                                         </div>
-                                        <h2><a href="shop-product-right.html">{{ product.name }}</a></h2>
+                                        <h2><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h2>
                                         <div class="rating-result" title="90%">
                                             <span>
                                                 {% if product.percentage %}
@@ -155,13 +155,13 @@
                         <!--Widget categories-->
                         <div class="sidebar-widget widget_categories mb-30 p-30 bg-grey border-radius-10">
                             <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">Categories</h5>
+                                <h5 class="widget-title mb-10">All Categories</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
                             <div class="">
                                 <ul class="categor-list">
-                                    {% for i in categories%}
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">{{ i.name }}</a>(125)</li>
+                                    {% for category in categories %}
+                                        <li class="cat-item text-muted"><a href="{% url 'shop' %}">{{ category.name }}</a>({{ category.product_set.all|length }})</li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -216,20 +216,20 @@
                                 <h5 class="widget-title mb-10">New products</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
-                            {% for i in new_products%}
-                            <div class="single-post clearfix">
-                                <div class="image">
-                                    <img src="{% static '' %}assets/imgs/shop/thumbnail-3.jpg" alt="#">
-                                </div>
-                                <div class="content pt-10">
-                                    <h5><a href="shop-product-detail.html">Chen Cardigan</a></h5>
-                                    <p class="price mb-0 mt-5">$99.50</p>
-                                    <div class="product-rate">
-                                        <div class="product-rating" style="width:90%"></div>
+                            {% for product in new_products %}
+                                <div class="single-post clearfix">
+                                    <div class="image">
+                                        <img src="{{ product.images.first.image.url }}" alt="#">
+                                    </div>
+                                    <div class="content pt-10">
+                                        <h5><a href="shop-product-detail.html">{{ product.name }}</a></h5>
+                                        <p class="price mb-0 mt-5">$ {{ product.price }}</p>
+                                        <div class="product-rate">
+                                            <div class="product-rating" style="width:{{ product.rate_percentage }}%"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {%endfor%}
+                            {% endfor %}
                         </div>
                         <!--Widget ads-->
                         <div class="sidebar-widget widget-ads mb-30">
@@ -250,11 +250,9 @@
                             </div>
                             <div class="">
                                 <ul class="categor-list">
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">Adidas</a>(125)</li>
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">Armani</a>(68)</li>
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">Burberry</a>(274)</li>
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">Chanel</a>(152)</li>
-                                    <li class="cat-item text-muted"><a href="{% url 'shop' %}">Prada</a>(302)</li>
+                                    {% for brand in brands %}
+                                        <li class="cat-item text-muted"><a href="{% url 'shop' %}">{{ brand.name }}</a>({{ brand.product_set.all|length }})</li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>

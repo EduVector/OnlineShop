@@ -6,9 +6,9 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> Headphone
-                    <span></span> Ultra Bass HD450
+                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
+                    <span></span> {{ product.categories.first.name }}
+                    <span></span> {{ product.name }}
                 </div>
             </div>
         </div>
@@ -23,37 +23,17 @@
                                         <span class="zoom-icon"><i class="fa fa-search-plus"></i></span>
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-2-1.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-3-4.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-4-1.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-5-1.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-6-1.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-7-1.jpg" alt="product image">
-                                            </figure>
-                                            <figure class="border-radius-10">
-                                                <img src="assets/imgs/shop/product-9-1.jpg" alt="product image">
-                                            </figure>
+                                            {% for img in images %}
+                                                <figure class="border-radius-10">
+                                                    <img src="{{ img.image.url }}" alt="product image">
+                                                </figure>
+                                            {% endfor %}
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-                                            <div><img src="assets/imgs/shop/thumbnail-3.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-4.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                            {% for img in images %}
+                                                <div><img src="{{ img.image.url }}" alt="product image"></div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
