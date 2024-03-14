@@ -43,6 +43,8 @@ class ShopView(View):
         page = request.GET.get('page', 1)
 
         products = Product.objects.filter(is_active=True).order_by("?")
+        new_products = Product.objects.filter(is_active=True).order_by('-created_at')
+        parent_cats = Category.objects.filter(level=0).order_by('?')
 
         if page:
             paginator = Paginator(products, 1)
@@ -50,7 +52,10 @@ class ShopView(View):
 
 
         context = {
-            "products": selected_page
+            "products": selected_page,
+            "new_products":new_products[:3],
+            'categories':parent_cats
+            
         }
         return render(request, 'product/shop.html')
 
