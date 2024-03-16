@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+{% load i18n %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -86,7 +88,7 @@
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="{% url 'add_to_wishlist' %}">
                                     <img class="svgInject" alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-heart.svg">
                                     <span class="pro-count blue">{{ wishlist_count }}</span>
                                 </a>
@@ -98,30 +100,20 @@
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static '' %}assets/imgs/shop/thumbnail-3.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Apple Watch Serial 7</a></h4>
-                                                <h3><span>1 × </span>$800.00</h3>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="far fa-times"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static '' %}assets/imgs/shop/thumbnail-1.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                                <h3><span>1 × </span>$3200.00</h3>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="far fa-times"></i></a>
-                                            </div>
-                                        </li>
+                                        {% for cart in cart_items %}
+                                            <li>
+                                                <div class="shopping-cart-img">
+                                                    <a href="shop-product-right.html"><img alt="wowy" src="{{ cart.product.images.first.image.url }}"></a>
+                                                </div>
+                                                <div class="shopping-cart-title">
+                                                    <h4><a href="shop-product-right.html">{{ cart.product.name }}</a></h4>
+                                                    <h3><span>{{ cart.quantity }} × </span>$ {{ cart.price }}</h3>
+                                                </div>
+                                                <div class="shopping-cart-delete">
+                                                    <a href="#"><i class="far fa-times"></i></a>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
@@ -245,7 +237,7 @@
                                             </ul>
                                         </li>
                                         <li><a href="shop-filter.html">Shop – Filter</a></li>
-                                        <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                        <li><a href="{% url 'add_to_wishlist' %}">Shop – Wishlist</a></li>
                                         <li><a href="shop-cart.html">Shop – Cart</a></li>
                                         <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                         <li><a href="shop-compare.html">Shop – Compare</a></li>
@@ -332,7 +324,7 @@
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="{% url 'add_to_wishlist' %}">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-heart-white.svg">
                                     <span class="pro-count white">{{ wishlist_count }}</span>
                                 </a>
@@ -344,7 +336,7 @@
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
-                                        <!-- {% for cart in cart_items %}
+                                        {% for cart in cart_items %}
                                             <li>
                                                 <div class="shopping-cart-img">
                                                     <a href="shop-product-right.html"><img alt="wowy" src="{{ cart.product.images.first.image.url }}"></a>
@@ -357,7 +349,7 @@
                                                     <a href="#"><i class="far fa-times"></i></a>
                                                 </div>
                                             </li>
-                                        {% endfor %} -->
+                                        {% endfor %}
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
@@ -417,7 +409,7 @@
                             <ul>
                                 <li><a href="{% url 'shop' %}"><i class="wowy-font-dress"></i>Women's Clothing</a></li>
                                 <li><a href="{% url 'shop' %}"><i class="wowy-font-tshirt"></i>Men's Clothing</a></li>
-                                <li> <a href="{% url 'shop' %}"><i class="wowy-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="{% url 'shop' %}"><i class="wowy-font-smartphone"></i> Cellphones</a></li>
                                 <li><a href="{% url 'shop' %}"><i class="wowy-font-desktop"></i>Computer & Office</a></li>
                                 <li><a href="{% url 'shop' %}"><i class="wowy-font-cpu"></i>Consumer Electronics</a></li>
                                 <li><a href="{% url 'shop' %}"><i class="wowy-font-home"></i>Home & Garden</a></li>
@@ -453,7 +445,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="shop-filter.html">Shop – Filter</a></li>
-                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="{% url 'add_to_wishlist' %}">Shop – Wishlist</a></li>
                                     <li><a href="shop-cart.html">Shop – Cart</a></li>
                                     <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                     <li><a href="shop-compare.html">Shop – Compare</a></li>

@@ -15,7 +15,7 @@ class ShopCartAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'status', 'user', 'phone_numeber', 'created_at']
+    list_display = ['id', 'status', 'user', 'phone_number', 'created_at']
 
 
 @admin.register(OrderItem)
