@@ -34,12 +34,19 @@ def get_processors(request):
         paginator = Paginator(products, 1)
         selected_page = paginator.get_page(page)
 
+    if request.user.is_authenticated:
+        wishlist_count = WishList.objects.filter(user_id=request.user.id).count()
+        carts = ShopCart.objects.filter(user=request.user.id, is_complated=False)
+
 
     context = {
         "brands": brands,
         "products": selected_page,
         "categories": categories,
         "parent_cats": parent_cats,
+        "wishlist_count": wishlist_count,
+        # "cart_items": carts.cart_items.all(),
+        "cart_count": carts.count(),
     }
 
     return context

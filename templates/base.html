@@ -88,13 +88,13 @@
                             <div class="header-action-icon-2">
                                 <a href="shop-wishlist.html">
                                     <img class="svgInject" alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-heart.svg">
-                                    <span class="pro-count blue">4</span>
+                                    <span class="pro-count blue">{{ wishlist_count }}</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="shop-cart.html">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count blue">2</span>
+                                    <span class="pro-count blue">{{ cart_count }}</span>
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
@@ -334,40 +334,30 @@
                             <div class="header-action-icon-2">
                                 <a href="shop-wishlist.html">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-heart-white.svg">
-                                    <span class="pro-count white">4</span>
+                                    <span class="pro-count white">{{ wishlist_count }}</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="shop-cart.html">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-cart-white.svg">
-                                    <span class="pro-count white">02</span>
+                                    <span class="pro-count white">{{ cart_count }}</span>
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static '' %}assets/imgs/shop/thumbnail-3.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Apple Watch Serial 7</a></h4>
-                                                <h3><span>1 × </span>$800.00</h3>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="far fa-times"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static '' %}assets/imgs/shop/thumbnail-4.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
-                                                <h3><span>1 × </span>$3500.00</h3>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="far fa-times"></i></a>
-                                            </div>
-                                        </li>
+                                        <!-- {% for cart in cart_items %}
+                                            <li>
+                                                <div class="shopping-cart-img">
+                                                    <a href="shop-product-right.html"><img alt="wowy" src="{{ cart.product.images.first.image.url }}"></a>
+                                                </div>
+                                                <div class="shopping-cart-title">
+                                                    <h4><a href="shop-product-right.html">{{ cart.product.name }}</a></h4>
+                                                    <h3><span>1 × </span>$ {{ cart.product.price }}</h3>
+                                                </div>
+                                                <div class="shopping-cart-delete">
+                                                    <a href="#"><i class="far fa-times"></i></a>
+                                                </div>
+                                            </li>
+                                        {% endfor %} -->
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">

@@ -11,6 +11,7 @@ from apps.product.models import (
     ProductImage, 
 )
 
+from django.db.models import Q
 from django.core.paginator import Paginator
 
 
@@ -66,6 +67,11 @@ class ShopView(View):
 
 class ProductDetailView(View):
     def get(self, request, slug):
+        # get request
+        active_color = request.GET.get("active_color")
+        active_size = request.GET.get("active_size")
+
+
         product = get_object_or_404(Product, slug=slug)
 
         tags = product.tags.all()
@@ -74,6 +80,12 @@ class ProductDetailView(View):
         colors = product.colors.all()
         prod_categories = product.categories.all()
         additional_info = product.additional_info.all()
+
+        # if active_color and active_size:
+        #     product.filter(Q(sizes__icontains=active_size) & Q(colors__icontains=active_color))
+            
+
+
         
 
 
@@ -82,6 +94,7 @@ class ProductDetailView(View):
             "tags": tags,
             "sizes": sizes,
             "images": images,
+            "active_color": active_color,
             "colors": colors,
             "product": product,
             "prod_categories": prod_categories,

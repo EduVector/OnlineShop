@@ -85,36 +85,35 @@
                                         <div class="attr-detail attr-color mb-15">
                                             <strong class="mr-10">Color</strong>
                                             <ul class="list-filter color-filter">
-                                                <li><a href="#" data-color="Red"><span class="product-color-red"></span></a></li>
-                                                <li><a href="#" data-color="Yellow"><span class="product-color-yellow"></span></a></li>
-                                                <li class="active"><a href="#" data-color="White"><span class="product-color-white"></span></a></li>
-                                                <li><a href="#" data-color="Orange"><span class="product-color-orange"></span></a></li>
-                                                <li><a href="#" data-color="Cyan"><span class="product-color-cyan"></span></a></li>
-                                                <li><a href="#" data-color="Green"><span class="product-color-green"></span></a></li>
-                                                <li><a href="#" data-color="Purple"><span class="product-color-purple"></span></a></li>
+                                                {% for color in colors %}
+                                                    <li class="active"><a href="#" data-color="{{ color.name }}"><span id="colordb" style="background: {{color.color}}"></span></a></li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
+                                        {% if sizes %}
                                         <div class="attr-detail attr-size">
                                             <strong class="mr-10">Size</strong>
                                             <ul class="list-filter size-filter font-small">
-                                                <li><a href="#">S</a></li>
-                                                <li class="active"><a href="#">M</a></li>
-                                                <li><a href="#">L</a></li>
-                                                <li><a href="#">XL</a></li>
-                                                <li><a href="#">XXL</a></li>
+                                                {% for size in sizes %}
+                                                        <li class="" id="sizedb"><a href="#">{{ size }}</a></li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
+                                        {% endif %}
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
                                             <div class="detail-qty border radius">
                                                 <a href="#" class="qty-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                                                <span class="qty-val">1</span>
+                                                <span class="qty-val" id="quantitydb">1</span>
                                                 <a href="#" class="qty-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                             </div>
                                             <div class="product-extra-link2">
-                                                <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
-                                                <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                <form action="#">
+                                                    <input type="hidden" name="product" value="1">
+                                                    <button type="submit" id="add_to_cart" class="button button-add-to-cart">Add to cart</button>
+                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                </form>
                                             </div>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
@@ -689,5 +688,34 @@
             </div>
         </section>
     </main>
+
+    <script>
+
+        $(document).ready(function(){
+            $('#add_to_cart').click(function(e){
+                e.preventDefault();
+                var product_id = {{ product.id }};
+                var quantity = $('#quantitydb').text();
+                var color = $('#colordb').attr('data-color');
+                var size = $('#sizedb').text();
+                var url = "/add/to/cart/";
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'product_id': product_id,
+                        'quantity': quantity,
+                        'color': color,
+                        'size': size,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        });
+
+    </scritp>
     
 {% endblock %}
