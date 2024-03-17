@@ -76,8 +76,8 @@
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
                                                 {% if product.percentage %}
-                                                    <ins><span class="text-brand">${{product.price|intcomma}}</span></ins>
-                                                    <ins><span class="old-price font-md ml-15">${{product.get_new_price|intcomma}}</span></ins>
+                                                    <ins><span class="text-brand">${{product.get_new_price|intcomma}}</span></ins>
+                                                    <ins><span class="old-price font-md ml-15">${{product.price|intcomma}}</span></ins>
                                                 {% else %}
                                                     <ins><span class="text-brand">${{product.price|intcomma}}</span></ins>
                                                 {% endif %}

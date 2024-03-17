@@ -94,7 +94,7 @@
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="{% url 'shop_cart' %}">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-cart.svg">
                                     <span class="pro-count blue">{{ cart_count }}</span>
                                 </a>
@@ -120,7 +120,7 @@
                                             <h4>Total <span>$4000.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html">View cart</a>
+                                            <a href="{% url 'shop_cart' %}">View cart</a>
                                             <a href="shop-checkout.html">Checkout</a>
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@
                                         </li>
                                         <li><a href="shop-filter.html">Shop – Filter</a></li>
                                         <li><a href="{% url 'add_to_wishlist' %}">Shop – Wishlist</a></li>
-                                        <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                        <li><a href="{% url 'shop_cart' %}">Shop – Cart</a></li>
                                         <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                         <li><a href="shop-compare.html">Shop – Compare</a></li>
                                     </ul> -->
@@ -330,7 +330,7 @@
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="{% url 'shop_cart' %}">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-cart-white.svg">
                                     <span class="pro-count white">{{ cart_count }}</span>
                                 </a>
@@ -356,7 +356,7 @@
                                             <h4>Total <span>$383.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html">View cart</a>
+                                            <a href="{% url 'shop_cart' %}">View cart</a>
                                             <a href="shop-checkout.html">Checkout</a>
                                         </div>
                                     </div>
@@ -446,7 +446,7 @@
                                     </li>
                                     <li><a href="shop-filter.html">Shop – Filter</a></li>
                                     <li><a href="{% url 'add_to_wishlist' %}">Shop – Wishlist</a></li>
-                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="{% url 'shop_cart' %}">Shop – Cart</a></li>
                                     <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                     <li><a href="shop-compare.html">Shop – Compare</a></li>
                                 </ul>

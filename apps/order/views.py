@@ -23,7 +23,7 @@ class AddToCartView(View):
             messages.error(request, "This size is not available")
 
         cart, created = ShopCart.objects.get_or_create(user=request.user, is_complated=False)
-        result = int(quantity) * product.price
+        result = int(quantity) * product.get_new_price
         cart.add_to_cart(product, quantity, result, color, size)
         return redirect('detail', product.slug)
 
@@ -45,7 +45,21 @@ class WishListView(View):
 
 def wishlist_delete(request, pk):
     wishlist = get_object_or_404(WishList, id=pk)
-    print(wishlist, "########################################################")
     wishlist.delete()
     return redirect("add_to_wishlist")
 
+
+class ShopCartView(View):
+    def get(self, request):
+        order_items = OrderItem.objects.all()
+
+        context = {
+            "order_items": order_items
+        }
+        return render(request, 'product/shop-cart.html', context)
+
+
+def cart_item_delete(request, pk):
+    item = get_object_or_404(OrderItem, id=pk)
+    item.delete()
+    return redirect("shop_cart")

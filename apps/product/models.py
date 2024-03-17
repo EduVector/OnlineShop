@@ -97,7 +97,6 @@ class Product(BaseModel):
         if rates['avarage']:
             return rates['avarage'] * 100 / 5
         return 0
-
     
     @property
     def rate_avg(self):
@@ -105,7 +104,6 @@ class Product(BaseModel):
         if rates['avarage']:
             return rates['avarage']
         return 0
-
 
     @property
     def get_new_price(self):
