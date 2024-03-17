@@ -83,12 +83,6 @@ class ProductDetailView(View):
 
         # if active_color and active_size:
         #     product.filter(Q(sizes__icontains=active_size) & Q(colors__icontains=active_color))
-            
-
-
-        
-
-
 
         context = {
             "tags": tags,

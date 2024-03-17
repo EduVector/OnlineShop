@@ -17,10 +17,10 @@ class AddToCartView(View):
 
         product = get_object_or_404(Product, id=product_id)
         if product.colors.filter(name=color).exists() and not color:
-            messages.error(request, "This color or size is not available")
+            messages.error(request, "This color is not available")
         
         if product.sizes.filter(name=size).exists() and not size:
-            messages.error(request, "This color or size is not available")
+            messages.error(request, "This size is not available")
 
         cart, created = ShopCart.objects.get_or_create(user=request.user, is_complated=False)
         result = int(quantity) * product.price

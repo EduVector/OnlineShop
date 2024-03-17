@@ -717,7 +717,7 @@
             var size = $('#sizedb').text();
 
             $.ajax({
-                url: "{% url 'add_to_cart' %}",
+                url: "{% url 'add_to_cart' %}",  // order cart url name
                 data: {
                     'product_id': productId,
                     'quantity': quantity,
@@ -728,8 +728,6 @@
                 type: 'POST',
                 success: function(response){
                     // Handle the response here
-                    var color = $('#colordb').text();
-                    var size = $('#sizedb').text();
                     alert('Product added to cart');
                 },
                 error: function(response){

@@ -21,11 +21,13 @@ class ShopCart(BaseModel):
 
     def add_to_cart(self, product, quantity, result, color, size):
         cart_item = OrderItem.objects.create(
-            cart=self, product=product,
-            price=result, color=color, size=size
+            cart=self, 
+            size=size,
+            color=color, 
+            price=result, 
+            product=product,
+            quantity=quantity
         )
-        cart_item.quantity = quantity
-        cart_item.save()
         return cart_item
 
 
