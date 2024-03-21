@@ -19,11 +19,10 @@ class ShopCart(BaseModel):
         return f"{self.user} - {self.is_complated}"
 
 
-    def add_to_cart(self, product, quantity, result, color, size):
+    def add_to_cart(self, product, quantity, result, user):
         cart_item = OrderItem.objects.create(
-            cart=self, 
-            size=size,
-            color=color, 
+            cart=self,
+            user=user,
             price=result, 
             product=product,
             quantity=quantity
@@ -45,11 +44,10 @@ class Order(BaseModel):
 
 
 class OrderItem(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     cart = models.ForeignKey(ShopCart, on_delete=models.CASCADE, related_name='cart_items')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items', null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
-    color = models.CharField(max_length=50, null=True, blank=True)
-    size = models.CharField(max_length=50, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 

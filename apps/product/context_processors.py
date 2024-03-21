@@ -36,14 +36,15 @@ def get_processors(request):
 
     wishlist = []
     shop_cart = []
-    order_item = []
+    order_items = []
 
     if request.user.is_authenticated:
         wishlist = WishList.objects.filter(user=request.user)
-        order_item = OrderItem.objects.filter(cart__user=request.user)
+        order_items = OrderItem.objects.filter(cart__user=request.user)
         shop_cart = ShopCart.objects.filter(user=request.user, is_complated=False)
 
-    
+    print(order_items)
+    print(shop_cart)
 
 
     context = {
@@ -52,7 +53,7 @@ def get_processors(request):
         "products": selected_page,
         "parent_cats": parent_cats,
 
-        "order_item": order_item,
+        "order_items": order_items,
         "shop_cart": shop_cart,
         "wishlist": wishlist,
     }
