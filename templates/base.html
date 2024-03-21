@@ -345,7 +345,7 @@
                                 </a>
                                 {% if request.user.is_authenticated %}
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                        {% if shopcart|length == 0 %}
+                                        {% if order_item|length == 0 %}
                                             <div class="shopping-cart-footer">
                                                 <div class="shopping-cart-total">
                                                     <h4>Savatcha bo'sh</h4>

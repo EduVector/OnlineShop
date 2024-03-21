@@ -34,9 +34,9 @@ def get_processors(request):
         paginator = Paginator(products, 1)
         selected_page = paginator.get_page(page)
 
-    carts = []
     wishlist = []
     shop_cart = []
+    order_item = []
 
     if request.user.is_authenticated:
         wishlist = WishList.objects.filter(user=request.user)
