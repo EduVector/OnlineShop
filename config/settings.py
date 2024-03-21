@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',  # sonlarni ajratib yozadi M: 1500000 -> 1,500,000
 
     # build-id
     'mptt',

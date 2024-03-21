@@ -1,5 +1,8 @@
 ﻿{% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load i18n %}
+
 {% block content %}
 {% if messages %}
     {% for message in messages %}
@@ -252,10 +255,10 @@
                                     </div>
                                     <div class="product-price">
                                         {% if product.percentage %}
-                                        <span>$ {{ product.get_new_price }} </span>
-                                        <span class="old-price">$ {{ product.price }}</span>
+                                        <span>$ {{ product.get_new_price|intcomma }} </span>
+                                        <span class="old-price">$ {{ product.price|intcomma }}</span>
                                         {% else %}
-                                        <span>$ {{ product.price }} </span>
+                                        <span>$ {{ product.price|intcomma }}</span>
                                         {% endif %}
                                     </div>
                                     <div class="product-action-1 show">
@@ -306,10 +309,10 @@
                                     </div>
                                     <div class="product-price">
                                         {% if product.percentage %}
-                                        <span>$ {{ product.get_new_price }} </span>
-                                        <span class="old-price">$ {{ product.price }}</span>
+                                        <span>$ {{ product.get_new_price|intcomma }} </span>
+                                        <span class="old-price">$ {{ product.price|intcomma }}</span>
                                         {% else %}
-                                        <span>$ {{ product.price }} </span>
+                                        <span>$ {{ product.price|intcomma }} </span>
                                         {% endif %}
                                     </div>
                                     <div class="product-action-1 show">
@@ -360,10 +363,10 @@
                                     </div>
                                     <div class="product-price">
                                         {% if i.percentage %}
-                                        <span>$ {{ i.get_new_price }} </span>
-                                        <span class="old-price">$ {{ i.price }}</span>
+                                        <span>$ {{ i.get_new_price|intcomma }} </span>
+                                        <span class="old-price">$ {{ i.price|intcomma }}</span>
                                         {% else %}
-                                        <span>$ {{ i.price }} </span>
+                                        <span>$ {{ i.price|intcomma }} </span>
                                         {% endif %}
                                     </div>
                                     <div class="product-action-1 show">
@@ -431,10 +434,10 @@
                                 </div>
                                 <div class="product-price">
                                     {% if product.percentage %}
-                                        <span>$ {{ product.get_new_price }} </span>
-                                        <span class="old-price">$ {{ product.price }}</span>
+                                        <span>$ {{ product.get_new_price|intcomma }} </span>
+                                        <span class="old-price">$ {{ product.price|intcomma }}</span>
                                     {% else %}
-                                        <span>$ {{ product.price }} </span>
+                                        <span>$ {{ product.price|intcomma }} </span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -533,10 +536,10 @@
                                     </div>
                                     <div class="product-price">
                                         {% if product.percentage %}
-                                        <span>$ {{ product.get_new_price }} </span>
-                                        <span class="old-price">$ {{ product.price }}</span>
+                                        <span>$ {{ product.get_new_price|intcomma }} </span>
+                                        <span class="old-price">$ {{ product.price|intcomma }}</span>
                                         {% else %}
-                                        <span>$ {{ product.price }} </span>
+                                        <span>$ {{ product.price|intcomma }} </span>
                                         {% endif %}
                                     </div>
                                     <div class="product-action-1 show">
@@ -584,10 +587,10 @@
                             </h4>
                             <div class="product-price">
                                 {% if product.percentage %}
-                                    <span>$ {{ product.get_new_price }} </span>
-                                    <span class="old-price">$ {{ product.price }}</span>
+                                    <span>$ {{ product.get_new_price|intcomma }} </span>
+                                    <span class="old-price">$ {{ product.price|intcomma }}</span>
                                 {% else %}
-                                    <span>$ {{ product.price }} </span>
+                                    <span>$ {{ product.price|intcomma }} </span>
                                 {% endif %}
                             </div>
                         </div>
@@ -610,10 +613,10 @@
                             </h4>
                             <div class="product-price">
                                 {% if product.percentage %}
-                                    <span>$ {{ product.get_new_price }} </span>
-                                    <span class="old-price">$ {{ product.price }}</span>
+                                    <span>$ {{ product.get_new_price|intcomma }} </span>
+                                    <span class="old-price">$ {{ product.price|intcomma }}</span>
                                 {% else %}
-                                    <span>$ {{ product.price }} </span>
+                                    <span>$ {{ product.price|intcomma }} </span>
                                 {% endif %}
                             </div>
                         </div>
@@ -636,10 +639,10 @@
                             </h4>
                             <div class="product-price">
                                 {% if product.percentage %}
-                                    <span>$ {{ product.get_new_price }} </span>
-                                    <span class="old-price">$ {{ product.price }}</span>
+                                    <span>$ {{ product.get_new_price|intcomma }} </span>
+                                    <span class="old-price">$ {{ product.price|intcomma }}</span>
                                 {% else %}
-                                    <span>$ {{ product.price }} </span>
+                                    <span>$ {{ product.price|intcomma }} </span>
                                 {% endif %}
                             </div>
                         </div>

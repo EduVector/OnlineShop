@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.contrib import messages
 from apps.contact.models import GetInTouch
 from .models import Category, Brand, Product
-from apps.order.models import ShopCart, WishList, Order
+from apps.order.models import OrderItem, ShopCart, WishList, Order
 from django.core.paginator import Paginator
 
 
@@ -34,19 +34,27 @@ def get_processors(request):
         paginator = Paginator(products, 1)
         selected_page = paginator.get_page(page)
 
+    wishlist = []
+    shop_cart = []
+    order_item = []
+
     if request.user.is_authenticated:
-        wishlist_count = WishList.objects.filter(user_id=request.user.id).count()
-        carts = ShopCart.objects.filter(user=request.user.id, is_complated=False)
+        wishlist = WishList.objects.filter(user=request.user)
+        order_item = OrderItem.objects.filter(cart__user=request.user)
+        shop_cart = ShopCart.objects.filter(user=request.user, is_complated=False)
+
+    
 
 
     context = {
         "brands": brands,
-        "products": selected_page,
         "categories": categories,
+        "products": selected_page,
         "parent_cats": parent_cats,
-        "wishlist_count": wishlist_count,
-        # "cart_items": carts.cart_items.all(),
-        "cart_count": carts.count(),
+
+        "order_item": order_item,
+        "shop_cart": shop_cart,
+        "wishlist": wishlist,
     }
 
     return context

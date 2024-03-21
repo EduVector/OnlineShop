@@ -1,5 +1,7 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
+{% load i18n %}
 {% block content%}
 
     <main class="main">
@@ -12,6 +14,13 @@
                 </div>
             </div>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <section class="mt-60 mb-60">
             <div class="container">
                 <div class="row">
@@ -51,24 +60,33 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="detail-info">
-                                        <h2 class="title-detail">Headphone Ultra Bass HD450</h2>
+                                        <h2 class="title-detail">H{{ product.name }}</h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
-                                                <span> Brands: <a href="{% url 'shop' %}">Bootstrap</a></span>
+                                                <span> Brands: <a href="{% url 'shop' %}">{{ product.brand }}</a></span>
                                             </div>
                                             <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
-                                                    <div class="product-rating" style="width:90%">
+                                                    <div class="product-rating" style="width:{{product.rate_percentage}}%">
                                                     </div>
                                                 </div>
-                                                <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+                                                <span class="font-small ml-5 text-muted"> ({{ product.product_rates.all|length }} reviews)</span>
                                             </div>
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
-                                                <ins><span class="text-brand">$120.00</span></ins>
-                                                <ins><span class="old-price font-md ml-15">$200.00</span></ins>
-                                                <span class="save-price  font-md color3 ml-15">25% Off</span>
+                                                {% if product.percentage %}
+                                                    <ins><span class="text-brand">${{product.get_new_price|intcomma}}</span></ins>
+                                                    <ins><span class="old-price font-md ml-15">${{product.price|intcomma}}</span></ins>
+                                                {% else %}
+                                                    <ins><span class="text-brand">${{product.price|intcomma}}</span></ins>
+                                                {% endif %}
+
+                                                {% if product.percentage %}
+                                                    <span class="save-price font-md color3 ml-15">{{product.percentage}}% Off</span>
+                                                {% else %}
+                                                    <br>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -86,7 +104,7 @@
                                             <strong class="mr-10">Color</strong>
                                             <ul class="list-filter color-filter">
                                                 {% for color in colors %}
-                                                    <li class="active"><a href="#" data-color="{{ color.name }}"><span id="colordb" style="background: {{color.color}}"></span></a></li>
+                                                    <li {% if active_color %}class="active"{% endif %}><a href="#" data-color="{{ color.name }}"><span id="colordb" style="background: {{color.color}}"></span></a></li>
                                                 {% endfor %}
                                             </ul>
                                         </div>
@@ -95,7 +113,7 @@
                                             <strong class="mr-10">Size</strong>
                                             <ul class="list-filter size-filter font-small">
                                                 {% for size in sizes %}
-                                                        <li class="" id="sizedb"><a href="#">{{ size }}</a></li>
+                                                        <li class="{% if active_size %}class="active"{% endif %}" id="sizedb"><a href="#">{{ size }}</a></li>
                                                 {% endfor %}
                                             </ul>
                                         </div>
@@ -110,7 +128,7 @@
                                             <div class="product-extra-link2">
                                                 <form action="#">
                                                     <input type="hidden" name="product" value="1">
-                                                    <button type="submit" id="add_to_cart" class="button button-add-to-cart">Add to cart</button>
+                                                    <button type="submit" id="add-to-cart" data-product-id="{{ product.id }}" class="button button-add-to-cart">Add to cart</button>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
                                                     <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
                                                 </form>
@@ -689,33 +707,37 @@
         </section>
     </main>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+    $(document).ready(function(){
+        $('#add-to-cart').click(function(){
+            var productId = $(this).data('product-id');
+            var quantity = $('#quantitydb').text();
+            var color = $('#colordb').text();
+            var size = $('#sizedb').text();
 
-        $(document).ready(function(){
-            $('#add_to_cart').click(function(e){
-                e.preventDefault();
-                var product_id = {{ product.id }};
-                var quantity = $('#quantitydb').text();
-                var color = $('#colordb').attr('data-color');
-                var size = $('#sizedb').text();
-                var url = "/add/to/cart/";
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        'product_id': product_id,
-                        'quantity': quantity,
-                        'color': color,
-                        'size': size,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function(data){
-                        console.log(data);
-                    }
-                });
+            $.ajax({
+                url: "{% url 'add_to_cart' %}",  // order cart url name
+                data: {
+                    'product_id': productId,
+                    'quantity': quantity,
+                    'color': color,
+                    'size': size,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                type: 'POST',
+                success: function(response){
+                    // Handle the response here
+                    alert('Product added to cart');
+                },
+                error: function(response){
+                    // Handle the error here
+                    console.log(response);
+                    alert('Error adding product to cart');
+                }
             });
         });
-
-    </scritp>
+    });
+</script>
     
 {% endblock %}
