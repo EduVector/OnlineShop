@@ -6,6 +6,7 @@ from .models import ShopCart, Order, OrderItem, WishList
 
 from .forms import OrderForm
 from django.contrib import messages
+from django.db.models import Sum
 
 
 class AddToCartView(View):
@@ -24,7 +25,7 @@ class AddToCartView(View):
 
         cart, created = ShopCart.objects.get_or_create(user=request.user, is_complated=False)
         result = int(quantity) * product.get_new_price
-        cart.add_to_cart(product, quantity, result, color, size)
+        cart.add_to_cart(product, quantity, result, request.user)
         return redirect('detail', product.slug)
 
 
@@ -36,7 +37,11 @@ class WishListView(View):
         return redirect('detail', product.slug)
     
     def get(self, request, *args, **kwargs):
-        wishlists = WishList.objects.filter(user=request.user)
+        if request.user.is_authenticated:
+            wishlists = WishList.objects.filter(user=request.user)
+        else:
+            wishlists = []
+
         context = {
             "wishlists": wishlists
         }
@@ -51,10 +56,16 @@ def wishlist_delete(request, pk):
 
 class ShopCartView(View):
     def get(self, request):
-        order_items = OrderItem.objects.all()
+        if request.user.is_authenticated:
+            order_items = OrderItem.objects.filter(user=request.user)
+            total_price = order_items.aggregate(Sum('price'))['price__sum']
+        else:
+            order_items = []
+            total_price = 0
 
         context = {
-            "order_items": order_items
+            "order_items": order_items,
+            "total_price": total_price
         }
         return render(request, 'product/shop-cart.html', context)
 
@@ -63,3 +74,7 @@ def cart_item_delete(request, pk):
     item = get_object_or_404(OrderItem, id=pk)
     item.delete()
     return redirect("shop_cart")
+
+
+def checkout(request):
+    return render(request, 'product/shop-checkout.html')
