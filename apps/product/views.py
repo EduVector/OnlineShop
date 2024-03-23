@@ -66,11 +66,11 @@ class ShopView(View):
 
 
 class ProductDetailView(View):
+
     def get(self, request, slug):
         # get request
         active_color = request.GET.get("active_color")
         active_size = request.GET.get("active_size")
-
 
         product = get_object_or_404(Product, slug=slug)
 
@@ -95,3 +95,8 @@ class ProductDetailView(View):
             "additional_info": additional_info,
         }
         return render(request, 'product/shop-detail.html', context)
+
+
+class ProductCommentView(View):
+    def post(self, request):
+        pass

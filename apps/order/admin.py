@@ -13,8 +13,15 @@ class ShopCartAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'is_complated', 'created_at')
 
 
+class OrderItemInline(admin.StackedInline):
+    readonly_fields = ['product', 'user', 'cart', 'quantity', 'is_active', 'price']
+    model = OrderItem
+    extra = 0
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemInline]
     list_display = ['id', 'status', 'user', 'phone_number', 'created_at']
 
 

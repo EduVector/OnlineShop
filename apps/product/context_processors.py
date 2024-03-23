@@ -19,7 +19,6 @@ def get_processors(request):
     brands = Brand.objects.all()
     products = Product.objects.filter(is_active=True).order_by("?")
 
-
     if q:
         products = products.filter(
             Q(name__icontains=q) | Q(categories__name__icontains=q)
@@ -28,7 +27,6 @@ def get_processors(request):
     if email:
         GetInTouch.objects.create(email=email, full_name="From Subscribe")
         messages.success(request, "Successfully subscribed")
-
     
     if page:
         paginator = Paginator(products, 1)
@@ -40,7 +38,7 @@ def get_processors(request):
 
     if request.user.is_authenticated:
         wishlist = WishList.objects.filter(user=request.user)
-        order_items = OrderItem.objects.filter(cart__user=request.user)
+        order_items = OrderItem.objects.filter(cart__user=request.user, is_active=True)
         shop_cart = ShopCart.objects.filter(user=request.user, is_complated=False)
 
     print(order_items)

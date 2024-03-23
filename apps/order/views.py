@@ -3,6 +3,7 @@ from django.views import View
 
 from apps.product.models import Product
 from .models import ShopCart, Order, OrderItem, WishList
+from apps.contact.models import Branch
 
 from .forms import OrderForm
 from django.contrib import messages
@@ -56,8 +57,10 @@ def wishlist_delete(request, pk):
 
 class ShopCartView(View):
     def get(self, request):
+        branchs = Branch.objects.all()
+
         if request.user.is_authenticated:
-            order_items = OrderItem.objects.filter(user=request.user)
+            order_items = OrderItem.objects.filter(user=request.user, is_active=True)
             total_price = order_items.aggregate(Sum('price'))['price__sum']
         else:
             order_items = []
@@ -65,9 +68,37 @@ class ShopCartView(View):
 
         context = {
             "order_items": order_items,
-            "total_price": total_price
+            "total_price": total_price,
+            "branchs": branchs
         }
         return render(request, 'product/shop-cart.html', context)
+    
+    def post(self, request):
+        url = request.META.get('HTTP_REFERER')
+
+        name = request.POST.get('name')
+        # email = request.POST.get('email')
+        phone = request.POST.get('phone_number')
+        address = request.POST.get('address')
+        user = request.user
+        if request.method == "POST":
+            items = OrderItem.objects.filter(user=user, order=None)
+            order = Order.objects.create(
+                user=user,
+                full_name=name,
+                phone_number=phone, 
+                status="PENDING",
+                address=address
+            )
+            for i in items:
+                i.order = order
+                i.is_active = False
+                i.save()
+            messages.success(request, "Success")
+            return redirect(url)
+        
+        return render(request, 'product/shop-cart.html')
+                
 
 
 def cart_item_delete(request, pk):
