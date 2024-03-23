@@ -56,6 +56,15 @@ def wishlist_delete(request, pk):
 
 class ShopCartView(View):
     def get(self, request):
+        
+        name = request.POST.get('name')
+        number = request.POST.get('number')
+        email = request.POST.get('email' , None)
+        
+        if request.method == "POST":
+            Order.objects.create(status='PENDING' , user=request.user , full_name=name , number=number , email=email)
+            return redirect('/')
+        
         if request.user.is_authenticated:
             order_items = OrderItem.objects.filter(user=request.user)
             total_price = order_items.aggregate(Sum('price'))['price__sum']

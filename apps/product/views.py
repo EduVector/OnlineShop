@@ -8,7 +8,8 @@ from apps.product.models import (
     Brand,
     Product,
     Category, 
-    ProductImage, 
+    ProductImage,
+    AdditionalInfo, 
 )
 
 from django.db.models import Q
@@ -67,20 +68,26 @@ class ShopView(View):
 
 class ProductDetailView(View):
     def get(self, request, slug):
+        
+        
         # get request
         active_color = request.GET.get("active_color")
         active_size = request.GET.get("active_size")
 
-
-        product = get_object_or_404(Product, slug=slug)
-
+        product = Product.objects.filter(slug=slug)
+        additional_info = AdditionalInfo.objects.filter(product__id=product.id)
+        
+        
+        
         tags = product.tags.all()
         sizes = product.sizes.all()
         images = product.images.all()
         colors = product.colors.all()
         prod_categories = product.categories.all()
-        additional_info = product.additional_info.all()
-
+        keys = additional_info.key.all()
+        values = additional_info.value.all()
+        
+        
         # if active_color and active_size:
         #     product.filter(Q(sizes__icontains=active_size) & Q(colors__icontains=active_color))
 
