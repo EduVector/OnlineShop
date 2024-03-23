@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="page-login-register.html">
+                                <a href="{% url 'profile' %}">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-user.svg">
                                 </a>
                             </div>
@@ -382,7 +382,7 @@
                                 {% endif %}
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="page-login-register.html">
+                                <a href="{% url 'profile' %}">
                                     <img alt="wowy" src="{% static '' %}assets/imgs/theme/icons/icon-user-white.svg">
                                 </a>
                             </div>
@@ -517,7 +517,7 @@
                                 <ul class="dropdown">
                                     <li><a href="page-about.html">About Us</a></li>
                                     <li><a href="page-contact.html">Contact</a></li>
-                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="{% url 'profile' %}">My Account</a></li>
                                     <li><a href="page-login-register.html">login/register</a></li>
                                     <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
                                     <li><a href="page-privacy-policy.html">Privacy Policy</a></li>

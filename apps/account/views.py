@@ -55,3 +55,11 @@ class LogoutView(View):
         logout(request)
         messages.success(request, "Successfully logged out.")
         return redirect("/")
+
+
+
+class UserProfile(View):
+    def get(self, request):
+        user = request.user
+        
+        return render(request, 'auth/account.html')
