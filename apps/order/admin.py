@@ -23,6 +23,8 @@ class OrderItemInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
     list_display = ['id', 'status', 'user', 'phone_number', 'created_at']
+    list_filter = ['status']
+    date_hierarchy = 'created_at'
 
 
 @admin.register(OrderItem)

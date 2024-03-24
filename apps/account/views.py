@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.views import generic, View
+from apps.order.models import ShopCart, OrderItem
 
 
 class RegisterView(View):
@@ -61,5 +62,9 @@ class LogoutView(View):
 class UserProfile(View):
     def get(self, request):
         user = request.user
-        
-        return render(request, 'auth/account.html')
+        ordered = OrderItem.objects.filter(user=user, is_active=False).order_by('-id')
+        context = {
+            "ordered": ordered
+        }
+        return render(request, 'auth/account.html', context)
+

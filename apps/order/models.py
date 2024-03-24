@@ -47,6 +47,10 @@ class Order(BaseModel):
     def __str__(self):
         return self.full_name
     
+    class Meta:
+        verbose_name = "Buyurtma"
+        verbose_name_plural = "Buyurtmalar"
+    
 
 
 class OrderItem(BaseModel):

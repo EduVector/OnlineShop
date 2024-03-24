@@ -30,13 +30,7 @@ class AddToCartView(View):
         return redirect('detail', product.slug)
 
 
-class WishListView(View):
-    def post(self, request, *args, **kwargs):
-        product_id = request.POST.get('product_id')
-        product = get_object_or_404(Product, id=product_id)
-        WishList.objects.get_or_create(user=request.user, product=product)
-        return redirect('detail', product.slug)
-    
+class WishListView(View):    
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             wishlists = WishList.objects.filter(user=request.user)
@@ -49,6 +43,23 @@ class WishListView(View):
         return render(request, 'product/shop-wishlist.html', context)
 
 
+class WishlistCreateView(View):
+    def get(self, request, pk):
+        url = request.META.get('HTTP_REFERER')
+        product = get_object_or_404(Product, id=pk)
+        user = request.user
+        if WishList.objects.filter(user=user, product=product).exists():
+            messages.error(request, "Bu mahsulot allaqachon bor!")
+            return redirect(url)
+        else:
+            WishList.objects.create(
+                user=user,
+                product= product
+            )
+            messages.success(request, "Siz tanlagan maxsulot ro'yxatga qo'shildi!")
+            return redirect(url)
+
+
 def wishlist_delete(request, pk):
     wishlist = get_object_or_404(WishList, id=pk)
     wishlist.delete()
@@ -56,6 +67,7 @@ def wishlist_delete(request, pk):
 
 
 class ShopCartView(View):
+
     def get(self, request):
         branchs = Branch.objects.all()
 

@@ -38,6 +38,7 @@ class AdditionalInfoAdmin(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, AdditionalInfoAdmin]
     list_display = ('name', 'status', 'brand', 'views', 'id')
+    prepopulated_fields = {"slug": ["name"]}
     search_fields  = ('name', 'status', 'brand',)
     list_filter = ['created_at', 'status', 'is_active']
     list_display_links = ('name', 'status', 'brand', 'views', 'id')
