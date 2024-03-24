@@ -41,10 +41,6 @@ def get_processors(request):
         order_items = OrderItem.objects.filter(cart__user=request.user, is_active=True)
         shop_cart = ShopCart.objects.filter(user=request.user, is_complated=False)
 
-    print(order_items)
-    print(shop_cart)
-
-
     context = {
         "brands": brands,
         "categories": categories,

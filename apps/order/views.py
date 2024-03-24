@@ -46,6 +46,7 @@ class WishListView(View):
 class WishlistCreateView(View):
     def get(self, request, pk):
         url = request.META.get('HTTP_REFERER')
+
         product = get_object_or_404(Product, id=pk)
         user = request.user
         if WishList.objects.filter(user=user, product=product).exists():
