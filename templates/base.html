@@ -29,7 +29,7 @@
                         <div class="header-info">
                             <ul>
                                 <li><a href="#">+998 94 733 16 07</a></li>
-                                <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank" href="page-location.html">Our location</a></li>
+                                <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank" href="page-location.html">{% trans "Bizning manzil" %}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -46,20 +46,24 @@
                     </div>
                     <div class="col-xl-3 col-lg-4">
                         <div class="header-info header-info-right">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
                             <ul>
                                 <li>
-                                    <a class="language-dropdown-active" href="#"> <i class="fa fa-globe-americas"></i> English <i class="fa fa-chevron-down"></i></a>
+                                    <a class="language-dropdown-active" href=""> <i class="fa fa-globe-americas"></i>{% trans "Til" %} <i class="fa fa-chevron-down"></i></a>
                                     <ul class="language-dropdown">
-                                        <li><a href="#">Uzbek</a></li>
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">РУССКИЙ</a></li>
+                                        {% for lang in languages %}
+                                            <li><a href="/{{lang.code}}/">{{ lang.name }}</a></li>
+                                        {% endfor %}
                                     </ul>
+
                                 </li>
                                 {% if user.is_authenticated %}
-                                    <li><a href="/auth/logout/">Logout </a></li>
+                                    <li><a href="/auth/logout/">{% trans "Chiqish" %} </a></li>
                                 {% else %}
-                                <li><a href="/auth/register/">Register </a></li>
-                                <li><a href="/auth/login/">Login </a></li>
+                                <li><a href="/auth/register/">{% trans "Ro'yxatdan o'tish" %} </a></li>
+                                <li><a href="/auth/login/">{% trans "Kirish" %} </a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -76,12 +80,12 @@
                     <div class="search-style-2">
                         <form action="/shop/">
                             <select class="select-active">
-                                <option>All Categories</option>
+                                <option>{% trans "Barcha kataloglar" %}</option>
                                 {% for cat in parent_cats %}
                                     <option>{{ cat.name }}</option>
                                 {% endfor %}
                             </select>
-                            <input type="text" name="q" placeholder="Search for items…">
+                            <input type="text" name="q" placeholder="{% trans 'Mahsulotlarni izlash...' %}">
                             <button type="submit"> <i class="far fa-search"></i> </button>
                         </form>
                     </div>
@@ -150,7 +154,7 @@
                     </div>
                     <div class="main-categori-wrap d-none d-lg-block">
                         <a class="categori-button-active" href="#">
-                            <span class="fa fa-list"></span> Browse Categories <i class="down far fa-chevron-down"></i> <i class="up far fa-chevron-up"></i>
+                            <span class="fa fa-list"></span> {% trans "Barcha Kataloglar" %} <i class="down far fa-chevron-down"></i> <i class="up far fa-chevron-up"></i>
                         </a>
                         <div class="categori-dropdown-wrap categori-dropdown-active-large">
                             <ul>
@@ -446,15 +450,15 @@
                     <nav>
                         <ul class="mobile-menu">
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/">Home</a>
-                                <ul class="dropdown">
+                                <!-- <ul class="dropdown">
                                     <li><a href="/">Home 1</a></li>
                                     <li><a href="index-2.html">Home 2</a></li>
                                     <li><a href="index-3.html">Home 3</a></li>
                                     <li><a href="index-4.html">Home 4</a></li>
-                                </ul>
+                                </ul> -->
                             </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="{% url 'shop' %}">shop</a>
-                                <ul class="dropdown">
+                                <!-- <ul class="dropdown">
                                     <li><a href="{% url 'shop' %}">Shop Grid – Right Sidebar</a></li>
                                     <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
                                     <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
@@ -472,62 +476,13 @@
                                     <li><a href="{% url 'shop_cart' %}">Shop – Cart</a></li>
                                     <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                     <li><a href="shop-compare.html">Shop – Compare</a></li>
-                                </ul>
+                                </ul> -->
                             </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega menu</a>
-                                <ul class="dropdown">
-                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-product-right.html">Dresses</a></li>
-                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
-                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
-                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-product-right.html">Jackets</a></li>
-                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
-                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
-                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
-                                            <li><a href="shop-product-right.html">Tablets</a></li>
-                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
-                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog-category-fullwidth.html">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
-                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
-                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
-                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
-                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product Layout</a>
-                                        <ul class="dropdown">
-                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
-                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
-                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="page-about.html">About Us</a></li>
-                                    <li><a href="page-contact.html">Contact</a></li>
-                                    <li><a href="{% url 'profile' %}">My Account</a></li>
-                                    <li><a href="page-login-register.html">login/register</a></li>
-                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-                                    <li><a href="page-terms.html">Terms of Service</a></li>
-                                    <li><a href="page-404.html">404 Page</a></li>
-                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -539,17 +494,16 @@
                         <div class="lang-curr-dropdown lang-dropdown-active">
                             <ul>
                                 <li><a href="#">English</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">Spanish</a></li>
+                                <li><a href="#">РУССКИЙ</a></li>
+                                <li><a href="#">Uzbek</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="single-mobile-header-info mt-30">
-                        <a target="_blank" href="page-location.html"> Our location </a>
+                        <a target="_blank" href="https://maps.google.com/"> Our location </a>
                     </div>
                     <div class="single-mobile-header-info">
-                        <a href="page-login-register.html">Log In / Sign Up </a>
+                        <a href="{% url 'login' %}">Log In / Sign Up </a>
                     </div>
                     <div class="single-mobile-header-info">
                         <a href="#">+998 94 733 16 07 </a>

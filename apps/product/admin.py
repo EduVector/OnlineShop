@@ -1,10 +1,11 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
+from modeltranslation.admin import TranslationAdmin
 from .models import Category, Brand, Color, Product, ProductImage, AdditionalInfo, Rate, Tag , Size
 
 
 @admin.register(Category)
-class CategoryAdmin(DraggableMPTTAdmin):
+class CategoryAdmin(DraggableMPTTAdmin, TranslationAdmin):
     search_fields = ('id',  'name' )
     mptt_indent_field = "name"
     list_display = ('tree_actions', 'indented_title', 'created_at', 'is_active', 'id')
@@ -35,7 +36,7 @@ class AdditionalInfoAdmin(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(TranslationAdmin):
     inlines = [ProductImageInline, AdditionalInfoAdmin]
     list_display = ('name', 'status', 'brand', 'views', 'id')
     prepopulated_fields = {"slug": ["name"]}
