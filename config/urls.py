@@ -21,12 +21,13 @@ from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.i18n import i18n_patterns
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
+    path('admin/', admin.site.urls),
+
+] + i18n_patterns(
     # media
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-
-    path('admin/', admin.site.urls),
 
     # Local app's URLs
     path('', include('apps.product.urls')),
